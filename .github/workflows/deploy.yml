@@ -1,0 +1,27 @@
+name: remote ssh command for deploy
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'README.md'
+      - 'docs/**'
+jobs:
+  build:
+    name: deploy
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+    - name: executing remote ssh commands using key
+      uses: appleboy/ssh-action@master
+      with:
+          host: ${{ secrets.REMOTE_IP }} # 인스턴스 IP
+          username: ${{ secrets.REMOTE_USER }} # 우분투 아이디
+          key: ${{ secrets.REMOTE_PRIVATE_KEY }} # ec2 instance pem key
+          port: ${{ secrets.REMOTE_SSH_PORT }} # 접속포트
+          script: |
+            cd /home/ubuntu/WhiteMouseProject
+            git pull origin main
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            npm install 
+            pm2 restart main
