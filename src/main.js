@@ -1,5 +1,5 @@
 // @ts-check
-console.log('start')
+console.log('테스트 1')
 require('dotenv').config()
 
 const app = require('./app');
