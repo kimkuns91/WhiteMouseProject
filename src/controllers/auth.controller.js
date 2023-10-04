@@ -10,7 +10,6 @@ const { token : Token } = db;
 exports.signin = async (req, res)=>{
     try {
         const { email, password, autoLogin } = req.body;
-
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(401).json({ message : "존재하지 않는 이메일입니다." })
@@ -20,30 +19,30 @@ exports.signin = async (req, res)=>{
         if (!isPasswordValid){
             return res.status(401).json({ message : "비밀번호가 일치하지 않습니다." })
         }
-        accessToken = await makeToken({ email, role : user.role })
+        accessToken = await makeToken({ WM: user._id, roles : user.roles })
         if(autoLogin){
-            refreshToken = await makeRefreshTokenInfinite({ email })
+            refreshToken = await makeRefreshTokenInfinite({ WM: user._id })
         } else {
-            refreshToken = await makeRefreshToken({ email })
+            refreshToken = await makeRefreshToken({ WM: user._id })
         }
-        res.status(200).json({ message : "Success", accessToken, refreshToken, email : user.email, username : user.username, role : user.role })
+        res.status(200).json({ message : "Success", accessToken, refreshToken, email : user.email, username : user.username, roles : user.roles })
     } catch (error) {
         console.error('Error during signing:', error);
         res.status(500).json({ message: 'Server error' });
     }
 }
 exports.getAuth = async (req, res)=>{
-    console.log("refreshResult OK")
-    const email = req.decoded.email
+    const WM = req.decoded.WM
+    const roles = req.decoded.roles
+    console.log(roles)
     const refreshToken = req.refreshToken
-    const newAccessToken = await makeToken({ email });
+    const newAccessToken = await makeToken({WM, roles});
     res.status(200).json({
         newAccessToken,
         refreshToken,
     });
 }
 exports.getUser = async (req, res)=>{
-    console.log("getUser")
     const email = req.decoded.email
     await User.findOne({ email })
         .then(result =>{

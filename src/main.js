@@ -1,10 +1,11 @@
 // @ts-check
-console.log('테스트 1')
 require('dotenv').config()
 
 const app = require('./app');
+const server = require('./websocket');
 
-const { PORT } = require('./common');
+const { PORT, WSPORT } = require('./common');
+
 const { connectToDatabase } = require('./mongo');
 
 connectToDatabase()  
@@ -12,6 +13,9 @@ connectToDatabase()
         app.listen(PORT, () => {
             console.log(`App listening at ${PORT}`);
         }) 
+        server.listen(WSPORT, () => {
+            console.log(`WebSocket Server is listening at http://localhost:${ WSPORT }`);
+        });
     })
     .catch(error => {
         console.error('Failed to connect to MongoDB:', error);

@@ -8,10 +8,10 @@ const { token : Token } = db;
 
 const { JWT_SECRET_KEY } = require('../common')
 
-exports.makeToken = ({ email, user }) =>{
+exports.makeToken = ({ WM, roles }) =>{
     const accessToken = jwt.sign({ 
-            email,
-            user
+            WM,
+            roles
         }, 
         JWT_SECRET_KEY,
         {
@@ -20,6 +20,7 @@ exports.makeToken = ({ email, user }) =>{
             expiresIn: "30s", // 24 hours
         }
     );
+    console.log(accessToken)
     return accessToken;
 };
 exports.makeRefreshToken = async ({ email }) =>{
@@ -45,7 +46,7 @@ exports.makeRefreshToken = async ({ email }) =>{
 
     return refreshToken;
 };
-exports.makeRefreshTokenInfinite = async ({ email }) =>{
+exports.makeRefreshTokenInfinite = async ({ WM }) =>{
     const refreshToken = jwt.sign(
         {},  
         JWT_SECRET_KEY, 
@@ -92,7 +93,8 @@ exports.verify = (token) => {
         const decoded = jwt.verify(token, JWT_SECRET_KEY);
         return {
             ok: true,
-            email: decoded.email
+            WM : decoded.WM,
+            roles : decoded.roles
         };
     } catch (error) {
         return {

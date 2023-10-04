@@ -2,6 +2,7 @@ const db = require("../models");
 const bcrypt = require('bcrypt');
 
 const { user : User } = db;
+const { role : Role } = db;
 
 exports.createUser = async (req, res)=>{
     try {
@@ -12,8 +13,8 @@ exports.createUser = async (req, res)=>{
             return res.status(400).json({ message : "이미 존재하는 이메일입니다." })
         }
         const hashedPassword = await bcrypt.hash(password, 10);
-
-        const newUser = new User({ email, username, password : hashedPassword });
+        const userRole = await Role.findOne({ name : 'User'})
+        const newUser = new User({ email, username, password : hashedPassword, roles : [userRole._id] });
         await newUser.save();
 
         res.status(201).json({ message : "Success" })
