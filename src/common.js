@@ -10,7 +10,7 @@ const ACCESS_KEY = 'AKIAT65CHJF4YZA6BOAF';
 const SECRET_ACCESS_KEY = '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';
 const REGION = "ap-northeast-2";
 const S3_BUCKET = 'white-mouse-bucket';
-const OPENAI_KEY = process.env.OPENAI_KEY || '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'
+const OPENAI_KEY = process.env.OPENAI_KEY
 /* eslint-disable prefer-destructuring */
 
 /** @type {string} */
