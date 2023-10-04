@@ -21,6 +21,7 @@ jobs:
           script: |
             cd /home/ubuntu/WhiteMouseProject
             git pull origin main
+            echo "OPENAI_KEY=${{ secrets.OPENAI_KEY }}" > .env
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
             npm install 
