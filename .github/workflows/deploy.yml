@@ -33,6 +33,7 @@ jobs:
             echo "REGION=${{ secrets.REGION }}" > .env
             echo "S3_BUCKET=${{ secrets.S3_BUCKET }}" > .env
             echo "OPENAI_KEY=${{ secrets.OPENAI_KEY }}" > .env
+            cat .env
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
             npm install 
