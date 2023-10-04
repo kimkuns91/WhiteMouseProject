@@ -21,18 +21,18 @@ jobs:
           script: |
             cd /home/ubuntu/WhiteMouseProject
             git pull origin main
-            echo "PORT=${{ secrets.PORT }}" > .env
-            echo "WSPORT=${{ secrets.WSPORT }}" > .env
-            echo "MONGO_USER=${{ secrets.MONGO_USER }}" > .env
-            echo "MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }}" > .env
-            echo "MONGO_CLUSTER=${{ secrets.MONGO_CLUSTER }}" > .env
-            echo "MONGO_DBNAME=${{ secrets.MONGO_DBNAME }}" > .env
-            echo "JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}" > .env
-            echo "ACCESS_KEY=${{ secrets.ACCESS_KEY }}" > .env
-            echo "SECRET_ACCESS_KEY=${{ secrets.SECRET_ACCESS_KEY }}" > .env
-            echo "REGION=${{ secrets.REGION }}" > .env
-            echo "S3_BUCKET=${{ secrets.S3_BUCKET }}" > .env
-            echo "OPENAI_KEY=${{ secrets.OPENAI_KEY }}" > .env
+            echo "PORT=${{ secrets.PORT }}" >> .env
+            echo "WSPORT=${{ secrets.WSPORT }}" >>.env
+            echo "MONGO_USER=${{ secrets.MONGO_USER }}" >> .env
+            echo "MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }}" >> .env
+            echo "MONGO_CLUSTER=${{ secrets.MONGO_CLUSTER }}" >> .env
+            echo "MONGO_DBNAME=${{ secrets.MONGO_DBNAME }}" >> .env
+            echo "JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}" >> .env
+            echo "ACCESS_KEY=${{ secrets.ACCESS_KEY }}" >> .env
+            echo "SECRET_ACCESS_KEY=${{ secrets.SECRET_ACCESS_KEY }}" >> .env
+            echo "REGION=${{ secrets.REGION }}" >> .env
+            echo "S3_BUCKET=${{ secrets.S3_BUCKET }}" >> .env
+            echo "OPENAI_KEY=${{ secrets.OPENAI_KEY }}" >> .env
             cat .env
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
