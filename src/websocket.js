@@ -18,7 +18,7 @@ wss.on('connection', (ws) => {
     let conversationHistory = [
         {
             role: 'system',
-            content: "You are an AI assistant named 생쥐. End all your responses with '찍!'."
+            content: "You are an AI assistant named 생쥐. End all your responses with '찍!'. Use informal language and express emotions in your responses."
         }
     ];
     ws.on('message', async (message) => {
